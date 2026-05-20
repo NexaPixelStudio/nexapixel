@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Prompt Mastery — Desain Grafis & Visual AI</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8CC7A;
+    --dark: #0D0D0D;
+    --dark-2: #141414;
+    --dark-3: #1C1C1C;
+    --dark-4: #242424;
+    --dark-5: #2E2E2E;
+    --text-primary: #F0EDE6;
+    --text-secondary: #A89F8C;
+    --text-muted: #5C5850;
+    --accent-purple: #8B6FD4;
+    --accent-teal: #3DB89C;
+    --accent-coral: #D4634C;
+    --accent-blue: #4C8ED4;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  /* ===== COVER ===== */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+    background: var(--dark);
+    border-bottom: 1px solid var(--dark-5);
+    page-break-after: always;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cover-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.35);
+    padding: 6px 18px;
+    border-radius: 2px;
+    margin-bottom: 48px;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 8vw, 88px);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .cover-title span {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .cover-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+  }
+
+  .cover-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 520px;
+    line-height: 1.8;
+    margin-bottom: 60px;
+  }
+
+  .cover-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 40px;
+  }
+
+  .cover-stats {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cover-stat {
+    text-align: center;
+  }
+
+  .cover-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .cover-stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ===== TOC ===== */
+  .toc-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    page-break-after: always;
+  }
+
+  .section-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 48px;
+    line-height: 1.1;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--dark-5);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--gold); }
+
+  .toc-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    min-width: 36px;
+  }
+
+  .toc-title { flex: 1; font-size: 15px; font-weight: 500; }
+
+  .toc-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .toc-dot {
+    flex: 1;
+    border-bottom: 1px dotted var(--dark-5);
+    margin: 0 12px;
+    align-self: center;
+  }
+
+  .toc-page-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ===== CHAPTERS ===== */
+  .chapter {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    page-break-before: always;
+  }
+
+  .chapter-header {
+    margin-bottom: 56px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--dark-5);
+  }
+
+  .chapter-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+
+  .chapter-title em { color: var(--gold); font-style: italic; }
+
+  .chapter-intro {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 620px;
+  }
+
+  /* Platform badges */
+  .platforms-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .platform-badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    border: 1px solid;
+  }
+
+  .badge-purple { color: #A78BFA; border-color: rgba(167,139,250,0.35); background: rgba(167,139,250,0.07); }
+  .badge-teal   { color: #34D399; border-color: rgba(52,211,153,0.35);  background: rgba(52,211,153,0.07);  }
+  .badge-coral  { color: #F87171; border-color: rgba(248,113,113,0.35); background: rgba(248,113,113,0.07); }
+  .badge-blue   { color: #60A5FA; border-color: rgba(96,165,250,0.35);  background: rgba(96,165,250,0.07);  }
+  .badge-gold   { color: var(--gold); border-color: rgba(201,168,76,0.35);  background: rgba(201,168,76,0.07);  }
+  .badge-green  { color: #86EFAC; border-color: rgba(134,239,172,0.35); background: rgba(134,239,172,0.07); }
+  .badge-orange { color: #FB923C; border-color: rgba(251,146,60,0.35);  background: rgba(251,146,60,0.07);  }
+  .badge-pink   { color: #F472B6; border-color: rgba(244,114,182,0.35); background: rgba(244,114,182,0.07); }
+
+  /* Prompt Cards */
+  .prompt-section {
+    margin-bottom: 48px;
+  }
+
+  .prompt-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+
+  .prompt-section-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .prompt-card {
+    background: var(--dark-3);
+    border: 1px solid var(--dark-5);
+    border-radius: 4px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .prompt-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--dark-5);
+    background: var(--dark-4);
+  }
+
+  .prompt-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  .prompt-platforms-inline {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .prompt-body {
+    padding: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: #D4C9A8;
+    line-height: 1.75;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .prompt-note {
+    padding: 10px 16px;
+    background: rgba(201,168,76,0.06);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .prompt-note strong { color: var(--gold); font-weight: 500; }
+
+  /* Copy button */
+  .copy-btn {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 4px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+
+  .copy-btn:hover { background: rgba(201,168,76,0.2); }
+
+  /* Platform Guide */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .platform-card {
+    background: var(--dark-3);
+    border: 1px solid var(--dark-5);
+    border-radius: 4px;
+    padding: 20px;
+  }
+
+  .platform-card-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+  }
+
+  .platform-card-type {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+  }
+
+  .platform-card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+
+  .platform-card-strengths {
+    list-style: none;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .platform-card-strengths li { padding: 2px 0; }
+  .platform-card-strengths li::before { content: '→ '; color: var(--gold); }
+
+  /* Tip Box */
+  .tip-box {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    padding: 16px 20px;
+    margin: 24px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .tip-box strong { color: var(--gold); }
+
+  /* Section divider */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 32px;
+  }
+
+  .section-divider-line { flex: 1; height: 1px; background: var(--dark-5); }
+
+  .section-divider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--dark-5);
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  /* Print styles */
+  @media print {
+    .copy-btn { display: none; }
+    .chapter { page-break-before: always; }
+    .cover { page-break-after: always; }
+    a { text-decoration: none; }
+  }
+
+  @media (max-width: 600px) {
+    .chapter, .toc-page { padding: 48px 20px; }
+    .cover { padding: 48px 24px; }
+    .cover-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================= COVER ============================= -->
+<div class="cover" id="cover">
+  <div class="cover-badge">E-Book Edisi Profesional · 2025</div>
+  <h1 class="cover-title">AI Prompt<br><span>Mastery</span></h1>
+  <p class="cover-subtitle">Desain Grafis & Visual AI</p>
+  <div class="cover-divider"></div>
+  <p class="cover-desc">Panduan lengkap prompt profesional untuk industri kreatif — dari product photography, fashion & model, branding, hingga video generation. Lengkap dengan rekomendasi platform AI terbaik.</p>
+  <div class="cover-stats">
+    <div class="cover-stat">
+      <span class="cover-stat-num">10</span>
+      <span class="cover-stat-label">Bab & Niche</span>
+    </div>
+    <div class="cover-stat">
+      <span class="cover-stat-num">80+</span>
+      <span class="cover-stat-label">Prompt Siap Pakai</span>
+    </div>
+    <div class="cover-stat">
+      <span class="cover-stat-num">20+</span>
+      <span class="cover-stat-label">Platform AI</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= TOC ============================= -->
+<div class="toc-page" id="toc">
+  <p class="section-eyebrow">Daftar Isi</p>
+  <h2 class="section-title">Konten<br>E-Book</h2>
+
+  <a href="#ch1" class="toc-item">
+    <span class="toc-num">01</span>
+    <div style="flex:1">
+      <div class="toc-title">Product Photography & Visualisasi Produk</div>
+      <div class="toc-sub">E-commerce, Packshot, Lifestyle Product</div>
+    </div>
+    <span class="toc-page-num">→</span>
+  </a>
+  <a href="#ch2" class="toc-item">
+    <span class="toc-num">02</span>
+    <div style="flex:1">
+      <div class="toc-title">Fashion & Model Photography</div>
+      <div class="toc-sub">Portrait, Editorial Fashion, Beauty</div>
+    </div>
+    <span class="toc-page-num">→</span>
+  </a>
+  <a href="#ch3" class="toc-item">
+    <span class="toc-num">03</span>
+    <div style="flex:1">
+      <div class="toc-title">Brand Identity & Logo Design</div>
+      <div class="toc-sub">Logo, Brand Mark, Visual System</div>
+    </div>
+    <span class="toc-page-num">→</span>
+  </a>
+  <a href="#ch4" class="toc-item">
+    <span class="toc-num">04</span>
+    <div style="flex:1">
+      <div class="toc-title">Social Media Content Design</div>
+      <div class="toc-sub">Instagram, TikTok, Banner, Story</div>
+    </div>
+    <span class="toc-page-num">→</span>
+  </a>
+  <a href="#ch5" class="toc-item">
+    <span class="toc-num">05</span>
+    <div style="flex:1">
+      <div class="toc-title">3D Visualization & Rendering</div>
+      <div class="toc-sub">Produk 3D, Arsitektur, Abstract 3D</div>
+    </div>
+    <span class="toc-page-num">→</span>
+  </a>
+  <a href="#ch6" class="toc-item">
+    <span class="toc-num">06</span>
+    <div style="flex:1">
+      <div class="toc-title">Ilustrasi & Concept Art</div>
+      <div class="toc-sub">Digital Painting, Character Design, Fantasy</div>
+    </div>
+    <span class="toc-page-num">→</span>
+  </a>
+  <a href="#ch7" class="toc-item">
+    <span class="toc-num">07</span>
+    <div style="flex:1">
+      <div class="toc-title">Typografi & Layout Editorial</div>
+      <div class="toc-sub">Poster Design, Magazine Layout, Typography Art</div>
+    </div>
+    <span class="toc-page-num">→</span>
+  </a>
+  <a href="#ch8" class="toc-item">
+    <span class="toc-num">08</span>
+    <div style="flex:1">
+      <div class="toc-title">Advertising & Campaign Visuals</div>
+      <div class="toc-sub">Billboard, Print Ad, Digital Campaign</div>
+    </div>
+    <span class="toc-page-num">→</span>
+  </a>
+  <a href="#ch9" class="toc-item">
+    <span class="toc-num">09</span>
+    <div style="flex:1">
+      <div class="toc-title">UI/UX Design & App Mockup</div>
+      <div class="toc-sub">App Design, Dashboard, Web UI</div>
+    </div>
+    <span class="toc-page-num">→</span>
+  </a>
+  <a href="#ch10" class="toc-item">
+    <span class="toc-num">10</span>
+    <div style="flex:1">
+      <div class="toc-title">Video Generation & Motion Design</div>
+      <div class="toc-sub">Cinematic, Product Video, Motion Graphics</div>
+    </div>
+    <span class="toc-page-num">→</span>
+  </a>
+  <a href="#appendix" class="toc-item">
+    <span class="toc-num">✦</span>
+    <div style="flex:1">
+      <div class="toc-title">Appendix: Panduan Platform AI Lengkap</div>
+      <div class="toc-sub">Perbandingan, Kelebihan, dan Use Case</div>
+    </div>
+    <span class="toc-page-num">→</span>
+  </a>
+</div>
+
+<!-- ============================= CHAPTER 1 ============================= -->
+<div class="chapter" id="ch1">
+  <div class="chapter-header">
+    <p class="chapter-num">Chapter 01</p>
+    <h2 class="chapter-title">Product Photography<br>& <em>Visualisasi Produk</em></h2>
+    <p class="chapter-intro">Prompt untuk menghasilkan foto produk berkualitas studio — dari e-commerce packshot sederhana hingga lifestyle product photography yang memukau. Cocok untuk brand, UMKM, dan agensi kreatif.</p>
+    <div class="platforms-row">
+      <span class="platform-badge badge-purple">Midjourney</span>
+      <span class="platform-badge badge-teal">Adobe Firefly</span>
+      <span class="platform-badge badge-blue">DALL·E 3</span>
+      <span class="platform-badge badge-coral">Stable Diffusion</span>
+      <span class="platform-badge badge-gold">Ideogram</span>
+    </div>
+  </div>
+
+  <!-- E-Commerce Packshot -->
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">1.1 — E-Commerce Packshot Clean</h3>
+    <p class="prompt-section-sub">Foto produk berlatar putih atau neutral, fokus pada kejernihan dan kualitas tinggi untuk marketplace dan website.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · PACKSHOT DASAR</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="prompt-platforms-inline">
+            <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+            <span class="platform-badge badge-blue" style="font-size:10px">DALL·E 3</span>
+          </div>
+          <button class="copy-btn">COPY</button>
+        </div>
+      </div>
+      <div class="prompt-body">Professional product photography of [NAMA PRODUK], clean white studio background, 
+soft diffused lighting from top-left, sharp focus on entire product, 
+subtle shadow underneath for grounding, ultra-high resolution, 
+commercial grade quality, no props, centered composition, 
+shot with 85mm lens, f/8 aperture, ISO 100</div>
+      <div class="prompt-note"><strong>Tips:</strong> Ganti [NAMA PRODUK] dengan deskripsi spesifik. Contoh: "a luxury skincare serum bottle, dark amber glass, gold metallic cap"</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · PACKSHOT PREMIUM</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+        </div>
+      </div>
+      <div class="prompt-body">High-end commercial product photography, [PRODUK] on seamless white background, 
+three-point studio lighting setup, catchlight reflections visible on surface, 
+photorealistic texture detail, professional retouching, 
+800% zoom quality, brand catalog style, --ar 1:1 --style raw --v 6.1</div>
+      <div class="prompt-note"><strong>Tips:</strong> Parameter <strong>--style raw</strong> di Midjourney menghasilkan tampilan lebih fotorealistis, kurang "AI-generated".</div>
+    </div>
+  </div>
+
+  <!-- Lifestyle Product -->
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">1.2 — Lifestyle Product Photography</h3>
+    <p class="prompt-section-sub">Produk diletakkan dalam konteks penggunaan nyata untuk memperkuat daya tarik emosional dan storytelling brand.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · LIFESTYLE MINIMAL</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-coral" style="font-size:10px">Stable Diffusion</span>
+        </div>
+      </div>
+      <div class="prompt-body">Lifestyle product photography of [PRODUK], styled flat lay arrangement, 
+Nordic minimal aesthetic, warm natural linen texture background, 
+complementary props (dried herbs, ceramic dish, linen cloth), 
+soft morning window light, muted earthy color palette, 
+overhead 90-degree shot, editorial magazine quality, Canon EOS R5</div>
+      <div class="prompt-note"><strong>Konteks terbaik:</strong> Skincare, food & beverage, homeware, wellness products</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · LIFESTYLE LUXURY</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-gold" style="font-size:10px">Ideogram</span>
+        </div>
+      </div>
+      <div class="prompt-body">Ultra-luxury brand photography, [PRODUK] elegantly placed on dark marble surface, 
+dramatic side lighting creating long shadows, rich jewel-tone color palette, 
+gold and deep emerald accents, bokeh background with soft architectural details, 
+Vogue editorial style, cinematic quality, 50mm f/1.4 shallow depth of field,
+dark moody atmosphere, premium brand aesthetic</div>
+      <div class="prompt-note"><strong>Konteks terbaik:</strong> Parfum, perhiasan, jam tangan, produk premium/luxury</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · PRODUCT IN USE</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-blue" style="font-size:10px">DALL·E 3</span>
+          <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+        </div>
+      </div>
+      <div class="prompt-body">Authentic lifestyle photography, [PRODUK] being used by hands (wrists only visible), 
+natural daylight from window, cozy home interior background slightly blurred, 
+genuine moment captured feeling, Instagram-worthy composition, 
+warm golden hour color grading, real-life texture and imperfection visible,
+aspirational yet relatable, lifestyle brand photography</div>
+    </div>
+  </div>
+
+  <!-- Color Background Packshot -->
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">1.3 — Colored & Creative Background</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · SOLID COLOR BG</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+        </div>
+      </div>
+      <div class="prompt-body">Commercial product shot of [PRODUK], bold [WARNA] solid color background, 
+centered product placement, dynamic diagonal angle 30 degrees, 
+matching color shadows (same hue, darker shade), 
+product-forward composition, Gen-Z vibrant visual style,
+crisp professional quality, trendy color-block aesthetic</div>
+      <div class="prompt-note"><strong>Kombinasi warna populer:</strong> Sage green / dusty pink / deep navy / burnt orange / electric blue</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · LIQUID SPLASH DRAMATIC</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-coral" style="font-size:10px">Stable Diffusion XL</span>
+        </div>
+      </div>
+      <div class="prompt-body">High-speed product photography, [PRODUK] surrounded by dynamic liquid splash, 
+frozen motion capture, water or [LIQUID COLOR] liquid exploding outward, 
+black background for dramatic contrast, studio strobe lighting, 
+hyper detailed droplets, commercial beverage photography style, 
+epic product reveal moment, --ar 4:5 --v 6.1</div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Pro Tip — Platform Terbaik per Kebutuhan:</strong><br>
+    <strong>Adobe Firefly</strong> → Terbaik untuk integrasi langsung ke Photoshop & background removal otomatis.<br>
+    <strong>Midjourney</strong> → Terbaik untuk estetika premium dan lifestyle photography.<br>
+    <strong>DALL·E 3</strong> → Terbaik untuk prompting natural language tanpa parameter teknis.<br>
+    <strong>Stable Diffusion</strong> → Terbaik untuk customization penuh + model fine-tuning dengan produk spesifik.
+  </div>
+</div>
+
+<!-- ============================= CHAPTER 2 ============================= -->
+<div class="chapter" id="ch2">
+  <div class="chapter-header">
+    <p class="chapter-num">Chapter 02</p>
+    <h2 class="chapter-title">Fashion & <em>Model Photography</em></h2>
+    <p class="chapter-intro">Prompt untuk menghasilkan visual fashion editorial, portrait model profesional, beauty photography, dan campaign visual mode. Digunakan oleh brand fashion, fotografer, dan agensi.</p>
+    <div class="platforms-row">
+      <span class="platform-badge badge-purple">Midjourney</span>
+      <span class="platform-badge badge-pink">Runway ML</span>
+      <span class="platform-badge badge-blue">Leonardo AI</span>
+      <span class="platform-badge badge-teal">Adobe Firefly</span>
+      <span class="platform-badge badge-orange">Flux</span>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">2.1 — Editorial Fashion Photography</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · HIGH FASHION EDITORIAL</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-orange" style="font-size:10px">Flux</span>
+        </div>
+      </div>
+      <div class="prompt-body">High fashion editorial photography, [DESKRIPSI MODEL: e.g. tall woman with sharp features], 
+wearing avant-garde [DESKRIPSI PAKAIAN] by [BRAND STYLE e.g. Rick Owens aesthetic],
+dramatic rooftop location at golden hour, architectural concrete backdrop, 
+Vogue Italia editorial quality, moody desaturated color grading, 
+shot by Steven Meisel, strong directional lighting, model in powerful confident pose,
+full body to waist framing, --ar 2:3 --style raw --v 6.1</div>
+      <div class="prompt-note"><strong>Tips:</strong> Sebutkan majalah fashion referensi (Vogue, Harper's Bazaar, i-D, Dazed) untuk mengarahkan estetika.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · STREET FASHION</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-blue" style="font-size:10px">Leonardo AI</span>
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+        </div>
+      </div>
+      <div class="prompt-body">Street style fashion photography, candid-feel editorial shot, 
+[DESKRIPSI MODEL] wearing [OUTFIT DESCRIPTION], 
+urban Tokyo/Seoul/New York street background (specify city), 
+dynamic walking pose mid-stride, overcast soft daylight, 
+slightly desaturated film photography aesthetic, grain texture, 
+Leica Q2 documentary feel, cool contemporary fashion editorial</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">2.2 — Beauty & Portrait Photography</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · BEAUTY CLOSE-UP</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+        </div>
+      </div>
+      <div class="prompt-body">Ultra-detailed beauty photography, extreme close-up portrait of [DESKRIPSI MODEL],
+flawless skin texture with visible pores and natural imperfections (authentic),
+[MAKEUP STYLE: e.g. bold red lip, smoky eye, minimal glow], 
+Rembrandt lighting setup, catchlights in eyes, 
+medium format camera Hasselblad quality, 
+creamy bokeh background, fashion beauty campaign aesthetic,
+skin tone accurate, --ar 4:5 --style raw</div>
+      <div class="prompt-note"><strong>Tips:</strong> Tambahkan "skin of [ETHNICITY/TONE]" untuk representasi yang tepat. Selalu spesifikasikan tone kulit untuk akurasi lebih tinggi.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · SKINCARE CAMPAIGN MODEL</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+          <span class="platform-badge badge-blue" style="font-size:10px">Leonardo AI</span>
+        </div>
+      </div>
+      <div class="prompt-body">Skincare brand model photography, [DESKRIPSI MODEL] with radiant dewy skin, 
+minimal makeup (skin-first beauty), touching face gently with fingertips,
+soft white studio background with slight warm gradient, 
+butterfly lighting from above front, skin absolutely luminous and hydrated,
+lifestyle wellness aesthetic, clean beauty brand campaign quality,
+warm color grade, natural authentic feeling</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">2.3 — Swimwear & Sports Fashion</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · SWIMWEAR LIFESTYLE</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-orange" style="font-size:10px">Flux</span>
+        </div>
+      </div>
+      <div class="prompt-body">Swimwear fashion photography, [DESKRIPSI MODEL] wearing [DESKRIPSI SWIMWEAR],
+tropical beach location with crystal turquoise water background,
+golden hour late afternoon light, sun-kissed skin, wet hair from ocean,
+casual confident beach pose, dynamic movement with water splashing,
+vibrant warm color palette, Summer campaign editorial quality,
+shot on Sony A1 with 35mm lens, --ar 9:16</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · ACTIVEWEAR/SPORTS</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-blue" style="font-size:10px">Leonardo AI</span>
+          <span class="platform-badge badge-coral" style="font-size:10px">Stable Diffusion</span>
+        </div>
+      </div>
+      <div class="prompt-body">Athletic fashion campaign photography, [DESKRIPSI MODEL] in dynamic sports action pose,
+wearing [DESKRIPSI ACTIVEWEAR], urban gym or rooftop environment,
+strong dramatic lighting from side, high contrast black and white or bold color,
+Nike/Adidas campaign quality, motion blur on background (pan technique),
+determined expression, powerful athletic form, commercial sports photography</div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Catatan Etika AI:</strong> Saat membuat gambar model manusia, selalu tentukan deskripsi yang jelas dan representatif. Gunakan platform yang mematuhi kebijakan konten dan hindari prompt yang dapat menghasilkan konten yang tidak pantas. <strong>Leonardo AI</strong> dan <strong>Adobe Firefly</strong> memiliki filter konten yang paling robust untuk penggunaan komersial.
+  </div>
+</div>
+
+<!-- ============================= CHAPTER 3 ============================= -->
+<div class="chapter" id="ch3">
+  <div class="chapter-header">
+    <p class="chapter-num">Chapter 03</p>
+    <h2 class="chapter-title">Brand Identity<br>& <em>Logo Design</em></h2>
+    <p class="chapter-intro">Prompt untuk menghasilkan konsep logo, brand mark, dan sistem visual brand yang kohesif. Sangat berguna untuk brainstorming awal dan presentasi konsep ke klien.</p>
+    <div class="platforms-row">
+      <span class="platform-badge badge-gold">Ideogram 2.0</span>
+      <span class="platform-badge badge-purple">Midjourney</span>
+      <span class="platform-badge badge-blue">DALL·E 3</span>
+      <span class="platform-badge badge-teal">Adobe Firefly</span>
+      <span class="platform-badge badge-coral">Looka</span>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">3.1 — Logo & Brand Mark</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · MINIMALIST LOGO CONCEPT</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-gold" style="font-size:10px">Ideogram 2.0</span>
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+        </div>
+      </div>
+      <div class="prompt-body">Minimalist vector logo design concept for [NAMA BRAND], 
+[INDUSTRI/NICHE: e.g. luxury coffee brand / tech startup / wellness studio],
+geometric icon mark combining [BENTUK/SIMBOL YANG RELEVAN],
+clean sans-serif wordmark below, negative space design technique,
+color palette: [WARNA] on white background,
+scalable, works at small sizes, professional brand identity,
+flat vector style, no gradients, no shadows, white background</div>
+      <div class="prompt-note"><strong>Platform terbaik:</strong> Ideogram 2.0 memiliki kemampuan text rendering terbaik untuk logo yang mengandung teks.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · LOGO MASCOT / CHARACTER</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-blue" style="font-size:10px">DALL·E 3</span>
+        </div>
+      </div>
+      <div class="prompt-body">Brand mascot logo design, [DESKRIPSI KARAKTER: e.g. friendly bear chef],
+for [NAMA BRAND] [INDUSTRI], 
+cartoon illustration style, bold outlines, 
+limited color palette [2-3 WARNA], 
+confident friendly expression, dynamic pose,
+suitable for [TARGET AUDIENCE: e.g. children / professionals / millennials],
+vector-ready flat illustration, white background, 
+logo-ready composition with clear space</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · EMBLEM / BADGE LOGO</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-gold" style="font-size:10px">Ideogram 2.0</span>
+          <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+        </div>
+      </div>
+      <div class="prompt-body">Premium emblem badge logo for [NAMA BRAND], 
+[INDUSTRI: e.g. artisan coffee roastery / heritage whiskey brand],
+circular seal design with intricate border detail,
+central icon: [DESKRIPSI IKON], 
+brand name arched along top, founding year at bottom,
+vintage-modern fusion aesthetic, gold and deep navy color scheme,
+heritage craftsmanship feel, engraved texture style, 
+suitable for packaging and merchandise</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">3.2 — Brand Identity Mockup</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · BRAND STATIONERY MOCKUP</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-coral" style="font-size:10px">Stable Diffusion</span>
+        </div>
+      </div>
+      <div class="prompt-body">Professional brand identity mockup flat lay, business cards, letterhead, 
+envelope, and notebook arranged aesthetically on [TEKSTUR PERMUKAAN],
+cohesive color system: [WARNA BRAND], clean typographic elements,
+overhead photography perspective, soft natural lighting,
+[BRAND PERSONALITY: e.g. minimal luxury / bold modern / organic natural],
+brand presentation photography quality, neutral background</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · PACKAGING BRAND SYSTEM</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-blue" style="font-size:10px">DALL·E 3</span>
+        </div>
+      </div>
+      <div class="prompt-body">Brand packaging design system for [NAMA BRAND] [PRODUK TYPE],
+complete product line (3-5 SKUs) with consistent visual identity,
+[GAYA DESAIN: e.g. minimal apothecary / vibrant playful / luxury dark],
+front and back label visible on hero product, 
+soft studio photography of packaging grouped arrangement,
+color-coded product variants clearly visible,
+award-worthy packaging design, Dieline style presentation</div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Penting:</strong> AI terbaik untuk logo adalah <strong>Ideogram 2.0</strong> karena kemampuan text rendering-nya yang jauh lebih baik dari kompetitor. Namun output AI masih perlu di-trace ulang di Illustrator untuk hasil vektor siap cetak. Gunakan AI sebagai <em>konsep awal dan referensi</em>, bukan file final.
+  </div>
+</div>
+
+<!-- ============================= CHAPTER 4 ============================= -->
+<div class="chapter" id="ch4">
+  <div class="chapter-header">
+    <p class="chapter-num">Chapter 04</p>
+    <h2 class="chapter-title">Social Media<br><em>Content Design</em></h2>
+    <p class="chapter-intro">Prompt untuk konten visual social media yang scroll-stopping — feed Instagram, TikTok thumbnails, banner promosi, dan story templates yang menarik perhatian dalam hitungan detik.</p>
+    <div class="platforms-row">
+      <span class="platform-badge badge-gold">Ideogram 2.0</span>
+      <span class="platform-badge badge-purple">Midjourney</span>
+      <span class="platform-badge badge-teal">Adobe Firefly</span>
+      <span class="platform-badge badge-blue">Canva AI</span>
+      <span class="platform-badge badge-orange">Flux</span>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">4.1 — Instagram Feed & Story</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · INSTAGRAM CAROUSEL COVER</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-gold" style="font-size:10px">Ideogram 2.0</span>
+          <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+        </div>
+      </div>
+      <div class="prompt-body">Instagram carousel post design, [TOPIK/TEMA KONTEN],
+bold typographic headline "[JUDUL KONTEN]" as main visual element,
+[GAYA VISUAL: e.g. clean minimal / bold maximalist / earthy organic],
+color palette: [WARNA], 1:1 square format,
+high contrast readable typography, strong visual hierarchy,
+social media optimized, eye-catching scroll-stopping design,
+modern brand feel, 2025 design trend aesthetic</div>
+      <div class="prompt-note"><strong>Terbaik:</strong> Ideogram 2.0 untuk konten dengan teks tertulis. Adobe Firefly untuk konten visual tanpa teks banyak.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · PROMO POST DISKON</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-gold" style="font-size:10px">Ideogram 2.0</span>
+          <span class="platform-badge badge-blue" style="font-size:10px">Canva AI</span>
+        </div>
+      </div>
+      <div class="prompt-body">Eye-catching promotional social media post design,
+sale announcement "SALE [PERSENTASE]%" as hero text, 
+[GAYA: bold modern / playful fun / luxury minimal],
+brand colors: [WARNA PRIMER] and [WARNA SEKUNDER],
+product image placeholder area clearly defined,
+urgency elements (countdown clock icon, "Limited Time" text),
+call-to-action button "SHOP NOW" prominently placed,
+Instagram post 1080x1080px design, clean professional layout</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">4.2 — TikTok & YouTube Thumbnails</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · YOUTUBE THUMBNAIL</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-gold" style="font-size:10px">Ideogram 2.0</span>
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+        </div>
+      </div>
+      <div class="prompt-body">High-impact YouTube thumbnail design, "[JUDUL VIDEO]" as bold text overlay,
+shocked/excited facial expression as central element (placeholder),
+[TEMA KONTEN: e.g. tech review / cooking / gaming / tutorial],
+bold contrasting colors that pop on mobile screen,
+red, yellow, or bright color accents for CTR optimization,
+clear readable text hierarchy, arrow or circle emphasis graphic,
+1280x720px horizontal format, clickbait-optimized visual hierarchy</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · TIKTOK BACKGROUND VISUAL</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-orange" style="font-size:10px">Flux</span>
+        </div>
+      </div>
+      <div class="prompt-body">TikTok video background visual, vertical 9:16 format,
+[TEMA: e.g. cozy cafe aesthetic / gaming setup / fashion lookbook],
+visually dynamic yet not distracting from center subject,
+trending [TAHUN] aesthetic: [e.g. dark academia / Y2K / clean girl aesthetic],
+high saturation vivid colors or muted film grain options,
+loopable seamless texture if possible,
+Gen-Z visual language, viral-worthy aesthetic --ar 9:16</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">4.3 — Banner & Digital Advertising</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · WEB BANNER HERO</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+          <span class="platform-badge badge-gold" style="font-size:10px">Ideogram 2.0</span>
+        </div>
+      </div>
+      <div class="prompt-body">Website hero banner design, [BRAND/PRODUK] campaign visual,
+headline: "[TAGLINE BRAND]" as primary typographic element,
+[GAYA: minimal clean / bold expressive / cinematic],
+wide horizontal format 1920x1080 or 16:9,
+left-aligned text layout, right side product/visual imagery,
+CTA button area clearly designated, 
+brand color palette: [WARNA], premium web design aesthetic,
+above-the-fold conversion-optimized layout</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= CHAPTER 5 ============================= -->
+<div class="chapter" id="ch5">
+  <div class="chapter-header">
+    <p class="chapter-num">Chapter 05</p>
+    <h2 class="chapter-title">3D Visualization<br>& <em>Rendering</em></h2>
+    <p class="chapter-intro">Prompt untuk menghasilkan visualisasi 3D produk, arsitektur interior/eksterior, abstract art 3D, dan render photorealistic yang tidak bisa dibedakan dari hasil render software sungguhan.</p>
+    <div class="platforms-row">
+      <span class="platform-badge badge-purple">Midjourney</span>
+      <span class="platform-badge badge-orange">Flux Dev</span>
+      <span class="platform-badge badge-coral">Stable Diffusion</span>
+      <span class="platform-badge badge-blue">Vizcom</span>
+      <span class="platform-badge badge-green">PromptBase</span>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">5.1 — Product 3D Render</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · 3D PRODUCT HERO SHOT</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-orange" style="font-size:10px">Flux Dev</span>
+        </div>
+      </div>
+      <div class="prompt-body">Photorealistic 3D product render of [PRODUK], 
+Blender Cycles or KeyShot quality rendering,
+[MATERIAL: e.g. matte aluminum / glossy ceramic / soft rubber],
+HDRI studio lighting with subtle reflections,
+floating in void space with soft drop shadow,
+subsurface scattering on translucent materials,
+4K resolution photorealistic render, 
+camera angle: [30-degree hero angle / straight front / 45-degree],
+product design portfolio quality --ar 1:1 --style raw --v 6.1</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · EXPLODED VIEW 3D</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-blue" style="font-size:10px">DALL·E 3</span>
+        </div>
+      </div>
+      <div class="prompt-body">Technical exploded view product visualization of [PRODUK],
+all components separated and labeled with thin guide lines,
+clean white or light gray background, isometric perspective,
+professional industrial design illustration style,
+subtle drop shadows under each component, 
+color-coded parts for easy identification,
+Apple product teardown aesthetic, technical precision,
+infographic-ready clean layout</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">5.2 — Arsitektur & Interior</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · INTERIOR VISUALIZATION</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-coral" style="font-size:10px">Stable Diffusion</span>
+        </div>
+      </div>
+      <div class="prompt-body">Architectural interior visualization, [TIPE RUANGAN: e.g. modern living room],
+[GAYA INTERIOR: e.g. Japandi / Industrial / Scandinavian / Art Deco],
+photorealistic rendering, natural light from floor-to-ceiling windows,
+[WAKTU: golden hour / bright morning / blue hour evening],
+premium material: [oak wood / marble / brushed brass / concrete],
+wide angle interior photography perspective, 
+luxury real estate quality rendering, 
+depth of field, realistic ambient occlusion --ar 16:9 --style raw</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · EXTERIOR ARCHITECTURAL</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-orange" style="font-size:10px">Flux</span>
+        </div>
+      </div>
+      <div class="prompt-body">Photorealistic architectural exterior rendering of [TIPE BANGUNAN],
+[GAYA ARSITEKTUR: contemporary minimalist / tropical modern / brutalist],
+lush landscaping with mature trees framing the building,
+golden hour cinematic lighting, dramatic sky,
+high-end architectural photography perspective slightly below eye level,
+Zaha Hadid or Tadao Ando aesthetic influence,
+ultra realistic material textures: concrete / glass / wood,
+award-winning architectural visualization quality</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">5.3 — Abstract 3D Art</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · ABSTRACT 3D SCULPTURAL</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-orange" style="font-size:10px">Flux Dev</span>
+        </div>
+      </div>
+      <div class="prompt-body">Abstract 3D sculptural art, [BENTUK: flowing ribbon / geometric crystal / organic blob],
+[MATERIAL: liquid chrome / frosted glass / iridescent ceramic],
+soft studio light with colored gel: [WARNA CAHAYA],
+black or gradient background, 
+Houdini VFX quality render, caustics and light refraction,
+luxury art direction, gallery-worthy digital sculpture,
+hyper detailed surface imperfection and fingerprint texture, 
+4K octane render --ar 4:5 --style raw --v 6.1</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= CHAPTER 6 ============================= -->
+<div class="chapter" id="ch6">
+  <div class="chapter-header">
+    <p class="chapter-num">Chapter 06</p>
+    <h2 class="chapter-title">Ilustrasi &<br><em>Concept Art</em></h2>
+    <p class="chapter-intro">Prompt untuk digital painting, character design, world-building, fantasy & sci-fi concept art, dan ilustrasi editorial. Ideal untuk game developers, penerbit, dan creative agency.</p>
+    <div class="platforms-row">
+      <span class="platform-badge badge-purple">Midjourney</span>
+      <span class="platform-badge badge-blue">Leonardo AI</span>
+      <span class="platform-badge badge-coral">Stable Diffusion</span>
+      <span class="platform-badge badge-orange">Flux</span>
+      <span class="platform-badge badge-pink">NovelAI</span>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">6.1 — Character Design</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · GAME CHARACTER CONCEPT</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-blue" style="font-size:10px">Leonardo AI</span>
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+        </div>
+      </div>
+      <div class="prompt-body">Game character concept art, [DESKRIPSI KARAKTER: e.g. female warrior mage],
+[GENRE: fantasy / sci-fi / cyberpunk / steampunk] aesthetic,
+full body character sheet: front, 3/4, and back view,
+detailed armor/outfit design [DESKRIPSI PAKAIAN],
+[WARNA PALET] color scheme, 
+strong silhouette readability, 
+AAA game concept art quality, 
+Artstation-worthy illustration, 
+clean white background, turnaround sheet layout</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · BRAND CHARACTER / MASCOT</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-blue" style="font-size:10px">Leonardo AI</span>
+          <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+        </div>
+      </div>
+      <div class="prompt-body">Brand mascot character illustration, [DESKRIPSI KARAKTER: e.g. cute owl professor],
+for [BRAND TYPE: e.g. educational app / food brand / tech startup],
+[GAYA ILUSTRASI: flat vector / semi-realistic cartoon / 3D render style],
+expressive personality: [SIFAT: friendly / energetic / trustworthy / playful],
+multiple expressions sheet (happy, thinking, surprised, sad),
+limited [3-4] color palette for logo versatility,
+scalable for multiple applications, on white background</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">6.2 — World Building & Environment</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · FANTASY ENVIRONMENT</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-coral" style="font-size:10px">Stable Diffusion</span>
+        </div>
+      </div>
+      <div class="prompt-body">Fantasy world environment concept art, [SETTING: e.g. ancient elven forest city],
+dramatic panoramic view, 
+[MOOD: ethereal / dark ominous / vibrant magical / post-apocalyptic],
+detailed architecture integrated with nature,
+atmospheric perspective with god rays / volumetric light,
+Ghibli-inspired / Games of Thrones quality / Tolkien aesthetic,
+master environmental concept artist quality,
+cinematic composition, wide establishing shot --ar 16:9</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · SCI-FI CITYSCAPE</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-orange" style="font-size:10px">Flux</span>
+        </div>
+      </div>
+      <div class="prompt-body">Sci-fi futuristic cityscape concept art, [SETTING: e.g. neo-Tokyo 2147],
+[VIBE: cyberpunk neon / utopian clean tech / dystopian industrial],
+aerial perspective looking down at megacity,
+flying vehicles traffic, holographic advertisements,
+atmospheric haze and light pollution,
+Blade Runner / Ghost in the Shell aesthetic influence,
+hyperdetailed concept art, cinematic matte painting quality,
+blue hour twilight lighting --ar 21:9</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">6.3 — Editorial Illustration</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · EDITORIAL MAGAZINE ILLUSTRATION</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-blue" style="font-size:10px">DALL·E 3</span>
+        </div>
+      </div>
+      <div class="prompt-body">Editorial illustration for [TOPIK ARTIKEL: e.g. climate change / mental health / technology],
+[GAYA: flat geometric / painterly / collage / risograph print],
+metaphorical visual storytelling approach, 
+symbolic imagery not literal representation,
+[PALET WARNA: warm earthy / cool pastel / bold primary / monochrome],
+New Yorker magazine / NYT editorial illustration quality,
+thought-provoking concept, culturally sensitive,
+print-ready illustration quality</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= CHAPTER 7 ============================= -->
+<div class="chapter" id="ch7">
+  <div class="chapter-header">
+    <p class="chapter-num">Chapter 07</p>
+    <h2 class="chapter-title">Tipografi &<br><em>Layout Editorial</em></h2>
+    <p class="chapter-intro">Prompt untuk poster desain tipografis, layout majalah editorial, book cover design, dan experimental typography yang menggunakan teks sebagai elemen visual utama.</p>
+    <div class="platforms-row">
+      <span class="platform-badge badge-gold">Ideogram 2.0</span>
+      <span class="platform-badge badge-purple">Midjourney</span>
+      <span class="platform-badge badge-teal">Adobe Firefly</span>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">7.1 — Typographic Poster</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · TYPOGRAPHIC ART POSTER</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-gold" style="font-size:10px">Ideogram 2.0</span>
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+        </div>
+      </div>
+      <div class="prompt-body">Typographic art poster design, quote: "[KUTIPAN/TEKS]",
+[GAYA: Swiss International Style / Bauhaus / brutalist / psychedelic / Art Nouveau],
+bold geometric type treatment as primary visual element,
+[PALET: 2 color risograph / black and white with pop of red / full color gradient],
+experimental layout with intentional tension and visual hierarchy,
+A2 poster format portrait orientation,
+design award-worthy typography, striking negative space usage</div>
+      <div class="prompt-note"><strong>Platform:</strong> Ideogram 2.0 terbaik untuk teks yang akurat dalam gambar. Midjourney lebih baik untuk estetika visual keseluruhan.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · EVENT POSTER</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-gold" style="font-size:10px">Ideogram 2.0</span>
+          <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+        </div>
+      </div>
+      <div class="prompt-body">Concert/event poster design for "[NAMA EVENT]",
+[GENRE/VIBE: electronic music / jazz / art exhibition / fashion show],
+date: "[TANGGAL]" venue: "[LOKASI]" visible in design,
+[GAYA VISUAL: psychedelic / clean modern / vintage retro / dark gothic],
+artist/headline typography as hero element, 
+bold color contrast, 
+A3 portrait format, 
+print-ready graphic design, 
+Cannes Lions worthy creative execution</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">7.2 — Book Cover & Magazine Layout</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · BOOK COVER DESIGN</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-gold" style="font-size:10px">Ideogram 2.0</span>
+        </div>
+      </div>
+      <div class="prompt-body">Book cover design concept for "[JUDUL BUKU]" by [NAMA PENULIS],
+[GENRE: literary fiction / thriller / self-help / sci-fi / romance],
+compelling visual metaphor for the book's core theme: [TEMA],
+typographic hierarchy: title dominant, subtitle, author name,
+[PALET WARNA DAN MOOD],
+bookstore shelf-ready design, spine visible on left side,
+award-winning book cover quality (Penguin Books aesthetic),
+front cover composition, clean professional execution</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= CHAPTER 8 ============================= -->
+<div class="chapter" id="ch8">
+  <div class="chapter-header">
+    <p class="chapter-num">Chapter 08</p>
+    <h2 class="chapter-title">Advertising &<br><em>Campaign Visuals</em></h2>
+    <p class="chapter-intro">Prompt untuk visual iklan profesional — print advertising, outdoor billboard, digital campaign, dan materi komunikasi pemasaran yang persuasif dan visual yang kuat.</p>
+    <div class="platforms-row">
+      <span class="platform-badge badge-purple">Midjourney</span>
+      <span class="platform-badge badge-teal">Adobe Firefly</span>
+      <span class="platform-badge badge-gold">Ideogram 2.0</span>
+      <span class="platform-badge badge-blue">DALL·E 3</span>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">8.1 — Print & OOH Advertising</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · MAGAZINE PRINT AD</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+        </div>
+      </div>
+      <div class="prompt-body">Full page magazine print advertisement for [BRAND/PRODUK],
+[KATEGORI: perfume / car / luxury goods / FMCG],
+hero product prominently featured, 
+tagline: "[TAGLINE]" as typography element,
+[GAYA VISUAL: minimalist luxury / bold expressive / lifestyle aspirational],
+Cannes Lions print advertising aesthetic,
+[MOOD BOARD REFERENCE: e.g. clean white space / dramatic black / nature immersive],
+professional advertising photography direction,
+A4 portrait format, full bleed design</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · BILLBOARD / OOH</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-gold" style="font-size:10px">Ideogram 2.0</span>
+        </div>
+      </div>
+      <div class="prompt-body">Outdoor billboard advertisement mockup for [BRAND],
+large format 14:5 landscape ratio (billboard proportion),
+ultra simple bold message (3-5 words maximum visible),
+single powerful hero visual, no clutter,
+legible at 300 meters distance, 
+[BRAND COLOR] dominant, high contrast,
+shown in context: urban street at night with illuminated billboard,
+photomontage showing billboard on actual building,
+award-winning OOH creative concept</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">8.2 — Digital Campaign Assets</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · CAMPAIGN KEY VISUAL</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-blue" style="font-size:10px">DALL·E 3</span>
+        </div>
+      </div>
+      <div class="prompt-body">Advertising campaign key visual (KV) for [BRAND] "[CAMPAIGN NAME]",
+[KAMPANYE FOCUS: Ramadan / Harbolnas / brand launch / seasonal],
+emotionally resonant hero image capturing [FEELING/INSIGHT],
+diverse [TARGET AUDIENCE] represented authentically,
+[BRAND COLOR SYSTEM] faithfully applied,
+logo placement area (top right or bottom left),
+headline text space preserved in layout,
+campaign photography quality, relatable storytelling visual,
+shot by [PHOTOGRAPHER STYLE e.g. Annie Leibovitz / Steve McCurry inspired]</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= CHAPTER 9 ============================= -->
+<div class="chapter" id="ch9">
+  <div class="chapter-header">
+    <p class="chapter-num">Chapter 09</p>
+    <h2 class="chapter-title">UI/UX Design<br>& <em>App Mockup</em></h2>
+    <p class="chapter-intro">Prompt untuk menghasilkan konsep desain antarmuka aplikasi mobile, dashboard web, dan design system yang modern dan fungsional — berguna untuk presentasi pitch ke klien atau investor.</p>
+    <div class="platforms-row">
+      <span class="platform-badge badge-purple">Midjourney</span>
+      <span class="platform-badge badge-blue">DALL·E 3</span>
+      <span class="platform-badge badge-teal">Adobe Firefly</span>
+      <span class="platform-badge badge-gold">Galileo AI</span>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">9.1 — Mobile App UI</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · MOBILE APP SCREEN</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-gold" style="font-size:10px">Galileo AI</span>
+        </div>
+      </div>
+      <div class="prompt-body">Mobile app UI design mockup for [TIPE APP: e.g. fitness tracker / food delivery / fintech],
+[PLATFORM: iOS / Android] design language,
+[SCREEN: home dashboard / onboarding / product detail / checkout],
+[GAYA DESAIN: minimal clean / bold colorful / dark mode premium / playful],
+realistic device frame (iPhone 15 Pro / Samsung S24),
+proper UI components: navigation bar, cards, buttons, typography,
+high fidelity design, Dribbble/Behance portfolio quality,
+[BRAND COLOR] color scheme, --ar 9:19</div>
+      <div class="prompt-note"><strong>Terbaik:</strong> Galileo AI khusus dirancang untuk generate UI dari text prompt, menghasilkan layout yang lebih fungsional.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · APP LANDING SCREEN</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-teal" style="font-size:10px">Adobe Firefly</span>
+        </div>
+      </div>
+      <div class="prompt-body">App store screenshot design for [APP NAME], 
+compelling onboarding screen with hero visual and value proposition,
+[GAYA: vibrant gradient / clean white / dark premium],
+large typographic headline: "[APP TAGLINE]",
+product screen mockup showing key feature,
+lifestyle background or abstract gradient,
+App Store optimized 1170x2532px portrait,
+conversion-optimized app marketing visual</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">9.2 — Dashboard & Web UI</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · DASHBOARD MOCKUP</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-purple" style="font-size:10px">Midjourney</span>
+          <span class="platform-badge badge-blue" style="font-size:10px">DALL·E 3</span>
+        </div>
+      </div>
+      <div class="prompt-body">Web analytics dashboard UI design mockup, 
+[TIPE: e-commerce analytics / SaaS admin / HR dashboard / finance],
+dark mode premium interface [or light mode],
+sidebar navigation, header with user profile,
+data visualization cards: line charts, bar graphs, KPI numbers,
+clean data-forward design, no unnecessary decoration,
+Figma design quality, enterprise software aesthetic,
+16:10 widescreen desktop resolution, --ar 16:10</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= CHAPTER 10 ============================= -->
+<div class="chapter" id="ch10">
+  <div class="chapter-header">
+    <p class="chapter-num">Chapter 10</p>
+    <h2 class="chapter-title">Video Generation<br>& <em>Motion Design</em></h2>
+    <p class="chapter-intro">Prompt khusus untuk platform AI video — menghasilkan video sinematik, product video, motion graphics, dan konten video kreatif menggunakan Sora, Runway, Kling, dan platform serupa.</p>
+    <div class="platforms-row">
+      <span class="platform-badge badge-pink">Runway Gen-4</span>
+      <span class="platform-badge badge-purple">Kling AI</span>
+      <span class="platform-badge badge-blue">Sora</span>
+      <span class="platform-badge badge-teal">Pika Labs</span>
+      <span class="platform-badge badge-coral">HeyGen</span>
+      <span class="platform-badge badge-gold">Luma Dream Machine</span>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">10.1 — Cinematic Product Video</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · HERO PRODUCT VIDEO</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-pink" style="font-size:10px">Runway Gen-4</span>
+          <span class="platform-badge badge-purple" style="font-size:10px">Kling AI</span>
+        </div>
+      </div>
+      <div class="prompt-body">Cinematic product reveal video, [PRODUK] slowly rotating 360 degrees,
+emerging from dramatic black or dark background,
+luxury light beam sweeping across product surface revealing details,
+particle dust motes floating in light,
+slow motion 120fps feel, epic music sfx implied,
+5-second seamless loop, 
+commercial advertising quality,
+shot on RED EPIC camera aesthetic,
+subtle camera drift adding life, 1080p 4K quality</div>
+      <div class="prompt-note"><strong>Platform terbaik:</strong> Runway Gen-4 untuk video kualitas sinematik. Kling AI untuk gerak yang lebih natural dan stabil.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · PRODUCT IN LIQUID</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-pink" style="font-size:10px">Runway Gen-4</span>
+          <span class="platform-badge badge-teal" style="font-size:10px">Pika Labs</span>
+        </div>
+      </div>
+      <div class="prompt-body">High-speed liquid dynamics product video, [PRODUK] submerged in 
+swirling [COLOR] liquid vortex, camera pulling back dramatically,
+photorealistic fluid simulation, refractive light through liquid,
+slow motion 1000fps aesthetic, hyperrealistic water droplets,
+black background, studio lighting from above,
+beverage brand commercial quality (Coca-Cola / Evian reference),
+seamless 8-second video loop</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">10.2 — Fashion & Model Video</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · FASHION FILM SHORT</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-pink" style="font-size:10px">Runway Gen-4</span>
+          <span class="platform-badge badge-purple" style="font-size:10px">Kling AI</span>
+        </div>
+      </div>
+      <div class="prompt-body">Fashion film short video clip, [DESKRIPSI MODEL] wearing [PAKAIAN],
+[SETTING: Parisian rooftop / Japanese garden / New York street at night],
+model walking toward camera in slow motion, hair and fabric moving naturally,
+cinematic color grade: [warm film / cold blue / vintage sepia],
+shallow depth of field bokeh background, 
+Vogue cinematic quality, editorial fashion film,
+close-up to full-body cut sequence implied,
+10-second cinematic sequence</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · BEAUTY CLOSEUP VIDEO</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-teal" style="font-size:10px">Pika Labs</span>
+          <span class="platform-badge badge-pink" style="font-size:10px">Runway</span>
+        </div>
+      </div>
+      <div class="prompt-body">Beauty brand video, extreme close-up of [PRODUK KECANTIKAN] being applied,
+gentle hand movements, product gliding over skin smoothly,
+dewy skin texture catching light, macro lens perspective,
+slow motion application, satisfying ASMR visual quality,
+soft warm lighting, clean background,
+[BRAND COLOR] product container visible,
+Instagram Reel 9:16 vertical format, 8 seconds</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">10.3 — Cinematic & Landscape Video</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · CINEMATIC LANDSCAPE</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-blue" style="font-size:10px">Sora</span>
+          <span class="platform-badge badge-gold" style="font-size:10px">Luma Dream Machine</span>
+        </div>
+      </div>
+      <div class="prompt-body">Cinematic aerial landscape video, [LOKASI: e.g. Bali rice terraces / Iceland waterfall],
+drone aerial shot slowly pushing forward over landscape,
+[WAKTU: golden hour / blue hour / stormy overcast / sunrise],
+Terrence Malick / National Geographic documentary quality,
+anamorphic lens cinematic ratio 2.39:1,
+realistic atmospheric haze and volumetric clouds,
+color grade: [Kodak film warm / Fuji cool / desaturated Netflix],
+5-second majestic cinematic moment</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · MOTION GRAPHIC INTRO</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-pink" style="font-size:10px">Runway Gen-4</span>
+          <span class="platform-badge badge-teal" style="font-size:10px">Pika Labs</span>
+        </div>
+      </div>
+      <div class="prompt-body">Motion graphics brand intro animation, "[BRAND NAME]" logo reveal,
+[GAYA: particle explosion / elegant line drawing / geometric morph / glitch tech],
+[DURASI: 3-5 seconds] seamless animation,
+[BRAND COLOR] primary color scheme, 
+satisfying kinetic typography,
+broadcast quality motion design,
+After Effects quality render aesthetic,
+16:9 horizontal format, loopable ending frame</div>
+    </div>
+  </div>
+
+  <div class="prompt-section">
+    <h3 class="prompt-section-title">10.4 — AI Avatar & Talking Head</h3>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-label">PROMPT · AI PRESENTER VIDEO</span>
+        <div class="prompt-platforms-inline">
+          <span class="platform-badge badge-coral" style="font-size:10px">HeyGen</span>
+          <span class="platform-badge badge-blue" style="font-size:10px">D-ID</span>
+        </div>
+      </div>
+      <div class="prompt-body">Professional AI avatar presenter video for [BRAND/KONTEN],
+[GENDER/APPEARANCE] presenter in professional attire,
+[SETTING: modern office / broadcast studio / clean gradient background],
+upper body frame (head to chest), direct eye contact with camera,
+[BAHASA: Indonesian / English] voiceover synced naturally,
+natural head movements and micro-expressions,
+corporate training / explainer video / product demo quality,
+broadcast news presenter aesthetic, 1080p quality</div>
+      <div class="prompt-note"><strong>Platform:</strong> HeyGen untuk video avatar dengan lip-sync paling natural. D-ID untuk animating foto statis. Synthesia untuk presentasi korporat.</div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Panduan Platform Video AI 2025:</strong><br>
+    <strong>Runway Gen-4</strong> → Kualitas sinematik tertinggi, kontrol kamera terbaik<br>
+    <strong>Kling AI</strong> → Gerakan manusia paling natural, stabilitas tinggi<br>
+    <strong>Sora (OpenAI)</strong> → Physics simulation & world consistency terbaik<br>
+    <strong>Pika Labs</strong> → Termudah digunakan, animasi objek & gambar<br>
+    <strong>Luma Dream Machine</strong> → Kualitas 3D dan landscape luar biasa<br>
+    <strong>HeyGen</strong> → Terbaik untuk AI avatar presentasi bisnis
+  </div>
+</div>
+
+<!-- ============================= APPENDIX ============================= -->
+<div class="chapter" id="appendix">
+  <div class="chapter-header">
+    <p class="chapter-num">Appendix</p>
+    <h2 class="chapter-title">Panduan Platform<br><em>AI Lengkap</em></h2>
+    <p class="chapter-intro">Perbandingan komprehensif semua platform AI visual yang direkomendasikan dalam e-book ini — kelebihan, kelemahan, harga, dan use case terbaik untuk desainer profesional.</p>
+  </div>
+
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label">Image Generation</span>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="platform-card-name">Midjourney v6.1</div>
+      <div class="platform-card-type">IMAGE GENERATION</div>
+      <div class="platform-card-desc">Platform image AI paling populer di industri kreatif. Menghasilkan gambar dengan estetika yang sangat tinggi dan konsisten.</div>
+      <ul class="platform-card-strengths">
+        <li>Estetika & artistic quality tertinggi</li>
+        <li>Fashion & lifestyle photography</li>
+        <li>Concept art & ilustrasi</li>
+        <li>3D render & abstract art</li>
+        <li>Akses via Discord & Web</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Adobe Firefly 3</div>
+      <div class="platform-card-type">IMAGE GENERATION</div>
+      <div class="platform-card-desc">Terintegrasi langsung dengan ekosistem Adobe. Paling aman secara lisensi komersial (trained on licensed content).</div>
+      <ul class="platform-card-strengths">
+        <li>Integrasi Photoshop & Illustrator</li>
+        <li>Generative Fill & Expand</li>
+        <li>Aman untuk penggunaan komersial</li>
+        <li>Background removal otomatis</li>
+        <li>Text effects yang akurat</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Ideogram 2.0</div>
+      <div class="platform-card-type">IMAGE + TEXT GENERATION</div>
+      <div class="platform-card-desc">Satu-satunya platform yang handal untuk menghasilkan teks akurat dalam gambar. Wajib untuk desain grafis yang membutuhkan typography.</div>
+      <ul class="platform-card-strengths">
+        <li>Text rendering terbaik di industri</li>
+        <li>Logo & poster dengan teks</li>
+        <li>Social media copy in design</li>
+        <li>Brand identity concepts</li>
+        <li>Free tier tersedia</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">DALL·E 3</div>
+      <div class="platform-card-type">IMAGE GENERATION</div>
+      <div class="platform-card-desc">Terintegrasi dengan ChatGPT. Terbaik untuk iterasi cepat dengan natural language prompting tanpa syntax khusus.</div>
+      <ul class="platform-card-strengths">
+        <li>Prompting paling natural</li>
+        <li>Integrasi ChatGPT</li>
+        <li>Prompt following sangat akurat</li>
+        <li>API tersedia untuk developer</li>
+        <li>Konten moderation ketat</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Stable Diffusion XL</div>
+      <div class="platform-card-type">OPEN SOURCE</div>
+      <div class="platform-card-desc">Platform open-source yang bisa dijalankan lokal. Fleksibilitas tertinggi dengan ribuan model fine-tuned yang tersedia.</div>
+      <ul class="platform-card-strengths">
+        <li>Bisa dijalankan offline (lokal)</li>
+        <li>Custom model fine-tuning</li>
+        <li>ControlNet untuk presisi tinggi</li>
+        <li>Gratis (self-hosted)</li>
+        <li>Komunitas model terbesar</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Flux (Black Forest Labs)</div>
+      <div class="platform-card-type">IMAGE GENERATION</div>
+      <div class="platform-card-desc">Model terbaru yang sangat kompetitif dengan Midjourney. Dikenal untuk fotorealisme dan akurasi prompt yang tinggi.</div>
+      <ul class="platform-card-strengths">
+        <li>Fotorealisme sangat tinggi</li>
+        <li>Akurasi prompt excellent</li>
+        <li>Human anatomy yang akurat</li>
+        <li>Tersedia via API & platforms</li>
+        <li>Cepat berkembang</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Leonardo AI</div>
+      <div class="platform-card-type">IMAGE GENERATION</div>
+      <div class="platform-card-desc">Fokus pada game asset dan character design. Interface yang user-friendly dengan banyak fitur khusus untuk content creator.</div>
+      <ul class="platform-card-strengths">
+        <li>Character design terbaik</li>
+        <li>Game asset generation</li>
+        <li>Image-to-image powerful</li>
+        <li>Motion (video) tersedia</li>
+        <li>Free tier generous</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Canva AI</div>
+      <div class="platform-card-type">DESIGN + AI</div>
+      <div class="platform-card-desc">Platform desain dengan AI terintegrasi. Terbaik untuk non-desainer yang butuh output desain siap pakai dengan cepat.</div>
+      <ul class="platform-card-strengths">
+        <li>Template siap pakai ribuan</li>
+        <li>Magic Design & Resize</li>
+        <li>Collaborative editing</li>
+        <li>Brand Kit integration</li>
+        <li>Mudah untuk pemula</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label">Video Generation</span>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="platform-card-name">Runway Gen-4</div>
+      <div class="platform-card-type">VIDEO GENERATION</div>
+      <div class="platform-card-desc">Pemimpin industri video AI. Kualitas sinematik tertinggi dengan kontrol kamera yang sangat presisi.</div>
+      <ul class="platform-card-strengths">
+        <li>Camera control (pan/zoom/orbit)</li>
+        <li>Konsistensi karakter video</li>
+        <li>Kualitas produksi profesional</li>
+        <li>Multi-modal input (image+text)</li>
+        <li>Digunakan oleh Hollywood</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Kling AI</div>
+      <div class="platform-card-type">VIDEO GENERATION</div>
+      <div class="platform-card-desc">Dari Kuaishou, Cina. Gerakan manusia paling natural dan realistis. Sangat populer untuk fashion dan lifestyle video.</div>
+      <ul class="platform-card-strengths">
+        <li>Human motion paling natural</li>
+        <li>Physics simulation akurat</li>
+        <li>5-10 detik video berkualitas</li>
+        <li>Image-to-video excellent</li>
+        <li>Harga kompetitif</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Sora (OpenAI)</div>
+      <div class="platform-card-type">VIDEO GENERATION</div>
+      <div class="platform-card-desc">Dari OpenAI. Kemampuan world-building dan konsistensi fisika terbaik. Durasi video terpanjang hingga 60 detik.</div>
+      <ul class="platform-card-strengths">
+        <li>Durasi video hingga 60 detik</li>
+        <li>World consistency terbaik</li>
+        <li>Text-to-video photorealistic</li>
+        <li>Tersedia via ChatGPT Pro</li>
+        <li>Prompt following akurat</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Pika Labs</div>
+      <div class="platform-card-type">VIDEO GENERATION</div>
+      <div class="platform-card-desc">Platform yang mudah digunakan dengan kemampuan animasi gambar statis menjadi video. Sangat populer di kalangan kreator konten.</div>
+      <ul class="platform-card-strengths">
+        <li>Animasi foto jadi video</li>
+        <li>User-friendly interface</li>
+        <li>Lipstick/makeup effect</li>
+        <li>Product animation simple</li>
+        <li>Free tier tersedia</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">HeyGen</div>
+      <div class="platform-card-type">AI AVATAR VIDEO</div>
+      <div class="platform-card-desc">Platform terbaik untuk membuat video presenter AI dengan lip-sync berbagai bahasa. Sangat populer untuk konten bisnis dan e-learning.</div>
+      <ul class="platform-card-strengths">
+        <li>Lip-sync multibahasa (termasuk Indonesia)</li>
+        <li>Custom AI avatar dari foto</li>
+        <li>Presentasi & explainer video</li>
+        <li>Template video bisnis</li>
+        <li>API untuk integrasi</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Luma Dream Machine</div>
+      <div class="platform-card-type">VIDEO GENERATION</div>
+      <div class="platform-card-desc">Sangat baik untuk video landscape sinematik dan 3D environment. Gerakan kamera yang smooth dan natural.</div>
+      <ul class="platform-card-strengths">
+        <li>Landscape & nature video</li>
+        <li>Smooth camera movement</li>
+        <li>3D environment quality</li>
+        <li>Free tier tersedia</li>
+        <li>Image-to-video bagus</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label">Specialized Tools</span>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="platform-card-name">Galileo AI</div>
+      <div class="platform-card-type">UI/UX DESIGN</div>
+      <div class="platform-card-desc">AI khusus untuk generate UI design dari teks. Menghasilkan layout yang fungsional dan siap di-export ke Figma.</div>
+      <ul class="platform-card-strengths">
+        <li>Text-to-UI design</li>
+        <li>Export ke Figma</li>
+        <li>Mobile & web layout</li>
+        <li>Design system aware</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Vizcom</div>
+      <div class="platform-card-type">PRODUCT DESIGN</div>
+      <div class="platform-card-desc">Khusus untuk industrial design dan product visualization dari sketch. Ideal untuk designer produk dan arsitek.</div>
+      <ul class="platform-card-strengths">
+        <li>Sketch-to-render</li>
+        <li>Industrial design fokus</li>
+        <li>Photorealistic render</li>
+        <li>Multiple view angles</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">Looka</div>
+      <div class="platform-card-type">LOGO & BRAND</div>
+      <div class="platform-card-desc">Platform AI khusus logo dan brand identity. Menghasilkan paket brand identity lengkap termasuk logo, warna, dan font secara otomatis.</div>
+      <ul class="platform-card-strengths">
+        <li>Logo generation otomatis</li>
+        <li>Brand kit lengkap</li>
+        <li>File vektor SVG/PDF</li>
+        <li>Mockup branding otomatis</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="platform-card-name">D-ID</div>
+      <div class="platform-card-type">AI AVATAR VIDEO</div>
+      <div class="platform-card-desc">Menganimasikan foto statis menjadi video talking head. Populer untuk personalized video marketing dan e-learning.</div>
+      <ul class="platform-card-strengths">
+        <li>Animasi foto jadi video bicara</li>
+        <li>Multibahasa TTS</li>
+        <li>Personalized video scale</li>
+        <li>API tersedia</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tip-box" style="margin-top:48px">
+    <strong>💡 Rekomendasi Stack AI Untuk Desainer Profesional:</strong><br><br>
+    <strong>Starter (Gratis/Murah):</strong> Canva AI + Ideogram 2.0 (free) + Pika Labs (free)<br>
+    <strong>Content Creator:</strong> Midjourney + HeyGen + Canva Pro<br>
+    <strong>Agency / Studio:</strong> Midjourney + Adobe Firefly + Runway Gen-4 + Ideogram Pro<br>
+    <strong>Enterprise:</strong> Adobe Firefly Enterprise + Runway API + DALL·E API + HeyGen API
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <div class="footer-logo">AI Prompt Mastery</div>
+  <p>E-Book Desain Grafis & Visual AI · Edisi 2025</p>
+  <p style="margin-top:8px; font-size:12px; color:#3A3830">Konten dalam e-book ini dibuat untuk tujuan edukasi profesional. Platform AI terus berkembang — selalu cek dokumentasi resmi untuk fitur terbaru.</p>
+</div>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.prompt-card');
+    const text = card.querySelector('.prompt-body').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = 'COPIED!';
+      setTimeout(() => btn.textContent = orig, 1500);
+    });
+  });
+});
+</script>
+</body>
+</html>
