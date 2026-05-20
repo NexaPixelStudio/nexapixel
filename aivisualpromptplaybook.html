@@ -8,22 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-  .back-link {
-            display: inline-flex;
-            align-items: center;
-            font-family: 'JetBrains Mono', monospace; /* Langsung sebut nama font-nya */
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--text-secondary); /* Ini sudah benar karena ada di :root */
-            text-decoration: none;
-            margin-bottom: 48px;
-            transition: color 0.2s ease;
-        }
-
-        .back-link:hover {
-            color: var(--gold); /* Disesuaikan dengan --gold milik file e-book Anda */
-        }
 :root{
   --bg:#0D0D0D;
   --card:#1C1C1C;
@@ -34,21 +18,76 @@
   --muted:#A89F8C;
 }
 
-*{box-sizing:border-box}
+*{box-sizing:border-box; scroll-behavior:smooth;}
 
 body{
   margin:0;
   background:var(--bg);
   color:var(--text);
   font-family:'DM Sans', sans-serif;
-  line-height:1.75;
+  line-height:1.7;
 }
 
-.wrapper{
-  max-width:800px;
-  margin:0 auto;
-  padding:100px 24px;
+/* ===== Tombol Kembali Premium ===== */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: var(--muted);
+  transition: .3s;
 }
+
+.back-link:hover {
+  color: var(--gold);
+}
+
+/* ===== Layout ===== */
+
+.layout{
+  display:flex;
+}
+
+.sidebar{
+  width:280px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  border-right:1px solid var(--border);
+  padding:40px 24px;
+  background:#0D0D0D;
+}
+
+.sidebar h3{
+  font-family:'Playfair Display', serif;
+  font-size:20px;
+  margin: 24px 0 20px 0; /* Memberi ruang di bawah tombol back */
+}
+
+.sidebar a{
+  display:block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  letter-spacing:1px;
+  text-decoration:none;
+  color:var(--muted);
+  margin-bottom:14px;
+  transition:.3s;
+}
+
+.sidebar a:hover{
+  color:var(--gold);
+}
+
+.content{
+  margin-left:280px;
+  max-width:800px;
+  padding:100px 40px;
+}
+
+/* ===== Typography ===== */
 
 h1,h2,h3{
   font-family:'Playfair Display', serif;
@@ -60,13 +99,7 @@ h1{font-size:52px; line-height:1.1;}
 h2{font-size:34px; margin-top:100px;}
 h3{font-size:22px;}
 
-p{color:var(--muted); margin-bottom:24px;}
-
-hr{
-  border:none;
-  border-top:1px solid var(--border);
-  margin:80px 0;
-}
+p{color:var(--muted);}
 
 .eyebrow{
   font-family:'JetBrains Mono', monospace;
@@ -77,23 +110,13 @@ hr{
   margin-bottom:16px;
 }
 
-.meta{
-  font-family:'JetBrains Mono', monospace;
-  font-size:13px;
-  color:var(--muted);
-  margin-top:24px;
+hr{
+  border:none;
+  border-top:1px solid var(--border);
+  margin:80px 0;
 }
 
-.badge{
-  display:inline-block;
-  font-family:'JetBrains Mono', monospace;
-  font-size:11px;
-  padding:4px 10px;
-  border:1px solid rgba(201,168,76,.4);
-  background:rgba(201,168,76,.07);
-  border-radius:20px;
-  margin:4px 6px 4px 0;
-}
+/* ===== Cards ===== */
 
 .card{
   background:var(--card);
@@ -121,300 +144,168 @@ hr{
   padding:18px;
   border-radius:4px;
   white-space:pre-wrap;
-  line-height:1.6;
 }
+
+/* ===== Tip Box ===== */
 
 .tip{
   border-left:3px solid var(--gold);
   background:rgba(201,168,76,.05);
   padding:22px;
   margin:40px 0;
-  color:var(--text);
 }
 
-ul{
-  padding-left:20px;
-  color:var(--muted);
+/* ===== Responsive ===== */
+
+@media(max-width:1024px){
+  .sidebar{
+    display:none;
+  }
+  .content{
+    margin-left:0;
+    padding:80px 24px;
+  }
 }
 </style>
 </head>
 <body>
-<div class="wrapper">
 
+<div class="layout">
+
+<div class="sidebar">
+  <a href="index.html" class="back-link">&#8592; MENU AWAL</a>
+  
+  <h3>Contents</h3>
+  <a href="#intro">00 Intro</a>
+  <a href="#framework">00 Framework</a>
+  <a href="#product">01 Product</a>
+  <a href="#fashion">02 Fashion</a>
+  <a href="#packaging">03 Packaging</a>
+  <a href="#poster">04 Poster</a>
+  <a href="#brand">05 Brand</a>
+  <a href="#food">06 Food</a>
+  <a href="#interior">07 Interior</a>
+  <a href="#3d">08 3D & Icon</a>
+  <a href="#video">09 AI Video</a>
+  <a href="#typography">10 Typography</a>
+  <a href="#uiux">11 UI/UX</a>
+  <a href="#marketplace">12 Marketplace</a>
+  <a href="#negative">13 Negative & QC</a>
+  <a href="#quick">14 Quick Prompt</a>
+  <a href="#reference">15 Reference</a>
+  <a href="#penutup">Penutup</a>
+</div>
+
+<div class="content">
+
+<div id="intro">
 <div class="eyebrow">AI Visual Playbook</div>
 <h1><em>AI VISUAL</em><br>PROMPT PLAYBOOK</h1>
-
 <p>Prompt profesional untuk graphic design, product content, model campaign, branding, dan AI video.</p>
-
-<div class="meta">
-Compiled for: Johanes Suaktiwa<br>
-Updated: 21 Mei 2026
 </div>
 
 <hr>
 
-<!-- ===================== CARA PAKAI ===================== -->
-
-<div class="eyebrow">Intro</div>
-<h2>Cara Pakai Ebook Ini</h2>
-
-<p>Ebook ini adalah playbook praktis. Hampir semua prompt ditulis dalam bahasa Inggris karena platform AI visual lebih stabil memahami detail visual dalam bahasa tersebut.</p>
-
-<ul>
-<li>Ganti placeholder seperti [PRODUCT], [BRAND], [SCENE]</li>
-<li>Iterasi kecil: ubah lighting, angle, ratio</li>
-<li>QC manual sebelum dipakai brand</li>
-<li>Gunakan AI untuk concept & draft, bukan final produksi tanpa review</li>
-</ul>
-
-<hr>
-
-<!-- ===================== 00 ===================== -->
-
+<div id="framework">
 <div class="eyebrow">Chapter 00</div>
 <h2>Framework Prompt Profesional</h2>
 
-<p>Struktur dasar agar output konsisten dan tidak random.</p>
-
 <div class="card">
-<div class="card-header">
-<h3>Master Prompt — Image Generation</h3>
-<div class="badge">Universal</div>
-</div>
+<div class="card-header"><h3>Master Prompt — Image Generation</h3></div>
 <div class="card-body">
 <div class="code">
-Create a [OUTPUT TYPE] of [MAIN SUBJECT] for [BRAND/USE CASE].
+Create a [OUTPUT TYPE] of [MAIN SUBJECT] for [BRAND].
 Scene: [SCENE].
-Composition: [ANGLE/FRAMING].
+Composition: [ANGLE].
 Lighting: [LIGHTING].
-Style: [VISUAL STYLE].
-Details to preserve: [IMPORTANT DETAILS].
-Mood: [MOOD].
-Output: [ASPECT RATIO].
-Avoid: [NEGATIVE DETAILS].
+Style: [STYLE].
+Output: [RATIO].
+Avoid: [NEGATIVE].
 </div>
-</div>
-</div>
-
-<div class="card">
-<div class="card-header">
-<h3>Master Prompt — Image to Video</h3>
-</div>
-<div class="card-body">
-<div class="code">
-Animate this exact image into a [DURATION]-second video.
-Preserve subject identity, shape, label, colors, lighting.
-Only add [MOTION].
-Camera movement: [CAMERA MOVE].
-Mood: [MOOD].
-Avoid morphing, redesign, extra objects.
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="card-header">
-<h3>Master Prompt — Product Ad Video</h3>
-</div>
-<div class="card-body">
-<div class="code">
-Create a [DURATION]-second commercial for [PRODUCT].
-
-Shot 1: [OPENING]
-Shot 2: [INTERACTION]
-Shot 3: [FINAL PACKSHOT]
-
-Camera: [STYLE]
-Lighting: [LIGHTING]
-Mood: [BRAND MOOD]
 </div>
 </div>
 </div>
 
 <hr>
 
-<!-- ===================== 01 ===================== -->
-
+<div id="product">
 <div class="eyebrow">Chapter 01</div>
-<h2>Product Photography & E-commerce</h2>
+<h2>Product Photography</h2>
 
 <div class="card">
-<div class="card-header">
-<h3>Minimal E-commerce Packshot</h3>
-<div class="badge">ChatGPT Image</div>
-<div class="badge">Firefly</div>
-</div>
+<div class="card-header"><h3>Minimal Packshot</h3></div>
 <div class="card-body">
 <div class="code">
-Create a clean professional e-commerce product photo of [PRODUCT],
-centered on warm white background,
-soft studio lighting,
-realistic shadow,
-accurate texture,
+Clean professional e-commerce photo of [PRODUCT],
+warm white background,
+soft shadow,
 premium catalog look,
-4:5 ratio,
-no text.
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="card-header">
-<h3>Luxury Skincare Hero</h3>
-</div>
-<div class="card-body">
-<div class="code">
-Luxury skincare hero shot of [PRODUCT NAME]
-frosted glass bottle,
-subtle water droplets,
-soft beige stone,
-diffused morning light,
-editorial beauty campaign,
 4:5 ratio.
+</div>
 </div>
 </div>
 </div>
 
 <hr>
 
-<!-- ===================== 02 ===================== -->
-
+<div id="fashion">
 <div class="eyebrow">Chapter 02</div>
-<h2>Fashion Model, Editorial & Beauty</h2>
-
-<div class="card">
-<div class="card-header">
-<h3>Editorial Fashion Portrait</h3>
-<div class="badge">Midjourney</div>
-</div>
-<div class="card-body">
-<div class="code">
-High-fashion editorial portrait of [MODEL]
-wearing [OUTFIT],
-textured neutral backdrop,
-cinematic magazine lighting,
-natural skin texture,
-85mm lens look,
-4:5 ratio.
-</div>
-</div>
+<h2>Fashion Editorial</h2>
+<p>High-fashion editorial portrait, natural skin texture, cinematic magazine lighting.</p>
 </div>
 
 <hr>
 
-<!-- ===================== 03 ===================== -->
-
-<div class="eyebrow">Chapter 03</div>
-<h2>Packaging & Mockup</h2>
-
-<div class="card">
-<div class="card-header">
-<h3>Premium Pouch Mockup</h3>
-</div>
-<div class="card-body">
-<div class="code">
-Realistic standing pouch packaging mockup for [PRODUCT],
-matte material,
-minimal premium label,
-subtle shadow,
-4:5 ratio,
-no random text.
-</div>
-</div>
-</div>
-
-<hr>
-
-<!-- ===================== 09 ===================== -->
-
+<div id="video">
 <div class="eyebrow">Chapter 09</div>
-<h2>AI Video Ads & Cinematic B-roll</h2>
+<h2>AI Video Ads</h2>
 
 <div class="card">
-<div class="card-header">
-<h3>Cinematic Text-to-Video</h3>
-</div>
+<div class="card-header"><h3>Image-to-Video</h3></div>
 <div class="card-body">
 <div class="code">
-8-second cinematic commercial for [PRODUCT].
-Camera starts close-up,
-slow pull back reveal.
-Natural motion.
-Premium lighting.
-24fps.
-16:9.
+Animate this exact image into 6-second ad.
+Subtle camera push-in.
+No morphing.
+No redesign.
+</div>
 </div>
 </div>
 </div>
 
 <hr>
 
-<!-- ===================== 13 ===================== -->
-
+<div id="negative">
 <div class="eyebrow">Chapter 13</div>
-<h2>Negative Prompt & QC Checklist</h2>
+<h2>Negative Prompt & QC</h2>
 
 <div class="card">
-<div class="card-header">
-<h3>Negative Prompt Library</h3>
-</div>
 <div class="card-body">
 <div class="code">
 distorted anatomy,
 extra fingers,
-warped hands,
 misspelled text,
 plastic skin,
-AI generated look,
-oversaturated colors,
-cheap stock photo style,
-watermark,
-jpeg artifacts
+AI look,
+watermark
 </div>
 </div>
 </div>
-
-<div class="tip">
-Checklist sebelum dipakai brand:
-• Produk tidak berubah
-• Teks tanpa typo
-• Wajah & tangan natural
-• Tidak morphing pada video
 </div>
 
 <hr>
 
-<div class="eyebrow">Chapter 15</div>
-<h2>Referensi Platform</h2>
-
-<ul>
-<li>OpenAI Image Docs</li>
-<li>Runway Gen-4.5 Docs</li>
-<li>Midjourney Docs</li>
-<li>Adobe Firefly Docs</li>
-<li>Canva AI Docs</li>
-<li>Ideogram Docs</li>
-<li>Krea Docs</li>
-<li>Google Veo Docs</li>
-<li>Kling Docs</li>
-<li>Luma Ray2 FAQ</li>
-<li>Pika Product Pages</li>
-</ul>
-
-<hr>
-
+<div id="penutup">
 <h2>Penutup</h2>
+<p>Prompt bagus bukan yang paling panjang, tapi yang paling jelas.</p>
 
-<p>
-Prompt bagus bukan yang paling panjang, tapi yang paling jelas.
-Gunakan AI sebagai creative partner, bukan pengganti judgement.
-QC manual tetap wajib.
-</p>
-
-<div style="margin-top: 40px;">
-    <a href="index.html" class="back-link">&#8592; KEMBALI KE MENU AWAL</a>
+<div style="margin-top: 60px;">
+  <a href="index.html" class="back-link">&#8592; KEMBALI KE MENU AWAL</a>
+</div>
 </div>
 
 </div>
+</div>
+
 </body>
 </html>
