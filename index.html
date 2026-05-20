@@ -156,7 +156,7 @@
             color: var(--text-main);
         }
 
-        /* Interactive Elements / Buttons & Input */
+        /* Interactive Elements / Buttons */
         .cta-btn {
             display: inline-block;
             font-family: var(--font-mono);
@@ -220,7 +220,7 @@
                 </div>
                 <div class="card-body">
                     <p>Sistem optimasi instruksi AI tingkat lanjut untuk efisiensi workflow produksi konten komersial.</p>
-                    <a href="#" class="cta-btn">Acquire License</a>
+                    <a href="https://lynk.id/" target="_blank" class="cta-btn">Acquire License</a>
                 </div>
             </div>
 
@@ -231,7 +231,7 @@
                 </div>
                 <div class="card-body">
                     <p>Panduan terstruktur pembuatan prompt gambar resolusi tinggi dengan estetika editorial premium.</p>
-                    <a href="#" class="cta-btn">Acquire License</a>
+                    <a href="https://lynk.id/" target="_blank" class="cta-btn">Acquire License</a>
                 </div>
             </div>
         </section>
@@ -247,53 +247,11 @@
             </div>
         </section>
 
-        <section>
-            <hr class="divider">
-            <span class="chapter-num">[ chapter 03 // client portal ]</span>
-            <h2>Akses Lisensi</h2>
-            <p>Masukkan token unik yang Anda terima setelah transaksi via Lynk.id untuk membuka brankas aset digital Anda.</p>
-            
-            <div style="background-color: var(--bg-card); padding: 32px; border: 1px solid var(--border-card); border-radius: 4px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 24px;">
-                <input type="text" id="tokenInput" placeholder="MASUKKAN TOKEN..." style="flex: 1; min-width: 250px; padding: 16px; background-color: var(--bg-main); border: 1px solid var(--border-card); color: var(--accent-gold); font-family: var(--font-mono); font-size: 0.95rem; border-radius: 4px; outline: none; text-transform: uppercase;">
-                <button onclick="verifyToken()" class="cta-btn" style="border: none; cursor: pointer; padding: 16px 32px;">Otentikasi</button>
-            </div>
-            <p id="errorMessage" style="color: #ff5252; font-family: var(--font-mono); font-size: 0.8rem; display: none;">[ERROR] Token tidak valid atau tidak dikenali.</p>
-        </section>
-
         <footer>
             &copy; 2026 NexaPixel. Crafted with absolute restraint.
         </footer>
 
     </div>
-
-    <script>
-        function verifyToken() {
-            const token = document.getElementById('tokenInput').value.trim().toUpperCase();
-            const errorMsg = document.getElementById('errorMessage');
-            
-            // KONFIGURASI KUNCI UTAMA (TOKEN DI LYNK.ID)
-            // Anda bisa mengubah tulisan "MASTERY2026" atau "PLAYBOOK2026" sesuai kemauan Anda
-            const accessMap = {
-                "MASTERY2026": "aipromptmastery.html",
-                "PLAYBOOK2026": "aivisualpromptplaybook.html"
-            };
-
-            if (accessMap[token]) {
-                errorMsg.style.display = "none";
-                window.location.href = accessMap[token];
-            } else {
-                errorMsg.style.display = "block";
-            }
-        }
-
-        // Fitur tombol Enter di keyboard
-        document.getElementById("tokenInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                verifyToken();
-            }
-        });
-    </script>
 
 </body>
 </html>
