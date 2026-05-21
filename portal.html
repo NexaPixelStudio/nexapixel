@@ -43,6 +43,7 @@
             max-width: 500px;
             width: 100%;
             text-align: center;
+            position: relative;
         }
 
         .eyebrow {
@@ -116,9 +117,10 @@
             display: none;
         }
 
-        /* Desain Tombol Bantuan DM Instagram */
-        .help-link {
+        /* Desain Tombol Hubungi Instagram */
+        .help-btn {
             display: block;
+            width: 100%;
             margin-top: 32px;
             font-family: var(--font-mono);
             font-size: 0.75rem;
@@ -126,17 +128,21 @@
             text-decoration: none;
             border-top: 1px solid var(--border-card);
             padding-top: 24px;
+            background: none;
+            letter-spacing: 0.05em;
             transition: color 0.2s;
         }
 
-        .help-link:hover { color: var(--accent-gold); }
+        .help-btn:hover { color: var(--accent-gold); opacity: 1; }
         
         .help-note {
             display: block;
             font-size: 0.65rem;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             margin-top: 6px;
-            opacity: 0.6;
+            opacity: 0.5;
+            text-transform: none;
+            letter-spacing: 0;
         }
     </style>
 </head>
@@ -154,10 +160,10 @@
         
         <p id="errorMessage">[ERROR] Token tidak valid atau tidak dikenali.</p>
 
-        <a href="https://ig.me/m/restin.elia" target="_blank" class="help-link">
-            Bantuan Akses? Hubungi Admin via DM Instagram
-            <span class="help-note">Gunakan template: "Hi kak! aku butuh bantuan nih, gak bisa masuk karna..."</span>
-        </a>
+        <button onclick="copyAndRedirect()" class="help-btn">
+            &#8592; Bantuan Akses? Hubungi via DM Instagram
+            <span class="help-note" id="copyNote">(Klik untuk salin template pesan bantuan otomatis)</span>
+        </button>
     </div>
 
     <script>
@@ -176,6 +182,27 @@
             } else {
                 errorMsg.style.display = "block";
             }
+        }
+
+        // Fungsi Spesial: Salin Teks & Buka IG DM
+        function copyAndRedirect() {
+            const textToCopy = "Hi kak! aku butuh bantuan nih, gak bisa masuk karna (..........?)!";
+            const noteElement = document.getElementById('copyNote');
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                noteElement.textContent = "[ TEMPLATE DI-COPY! Tinggal Paste di DM IG ]";
+                noteElement.style.color = "var(--accent-gold)";
+                
+                // Tunggu sebentar agar user sadar teks sudah tersalin, lalu buka IG
+                setTimeout(() => {
+                    window.open("https://ig.me/m/restin.elia", "_blank");
+                    noteElement.textContent = "(Klik untuk salin template pesan bantuan otomatis)";
+                    noteElement.style.color = "var(--text-secondary)";
+                }, 1000);
+            }).catch(() => {
+                // Cadangan jika browser memblokir fungsi clipboard otomatis
+                window.open("https://ig.me/m/restin.elia", "_blank");
+            });
         }
 
         document.getElementById("tokenInput").addEventListener("keypress", function(event) {
